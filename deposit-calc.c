@@ -23,6 +23,15 @@ int deposit_calc_v1(int date, int sum){
 	printf("Your profit is %.2f RUB.",income);
 	return income;
 }
+int deposit_calc_v2(int date, int sum){
+	double income;
+	if(date<=30) income=sum*(-0.1);
+	if(date>30&&date<=120) income=sum*0.03;
+	if(date>120&&date<=240) income=sum*0.08;
+	if(date>240&&date<=365) income=sum*0.15;
+	printf("Your profit is %.2f RUB.",income);
+	return income;
+}
 
 
 int main(){
