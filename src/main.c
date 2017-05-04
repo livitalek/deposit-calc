@@ -2,8 +2,8 @@
 #include "deposit.h"
 
 int main() {
-	int d, t;
-	float s;
+	int d;
+	float t, s;
 	ml: printf("Write the days and deposit ");
 	scanf("%d %f", &d, &s);
 	if(d > 0 && d < 366 && s >= 10000) {
