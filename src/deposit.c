@@ -1,4 +1,4 @@
-int analiz(int d, int s) {
+int analiz(float d, int s) {
 	if(d <= 30) {
 		if (s <= 100000) s -= s / 10;
 			else s -= s / 10;
