@@ -15,5 +15,5 @@ int analiz(int d, float s) {
 						if (s <= 100000) s += s * 0.12;
 							else s += s * 0.15;
 				}
-	return 0;
+	return s;
 }
