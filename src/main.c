@@ -3,7 +3,7 @@
 
 int main() {
 	int s, t, d;
-	ml: printf("Write the numbers ");
+	ml: printf("Write the days and deposit ");
 	scanf("%d %d", &d, &s);
 	if(d > 0 && d < 366 && s >= 10000) {
 		t = analiz(d, s);
