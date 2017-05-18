@@ -1,4 +1,5 @@
-int analiz(int d, float s) {
+#include "deposit.h"
+float analiz(int d, float s) {
 	if(d <= 30) {
 		if (s <= 100000) s -= s / 10;
 			else s -= s / 10;
@@ -16,4 +17,13 @@ int analiz(int d, float s) {
 							else s += s * 0.15;
 				}
 	return s;
+}
+
+float analiz2(int d, float s) {
+	float t;
+	if(d > 0 && d < 366 && s >= 10000) {
+		t = analiz(d, s);
+	}
+	else t = 0;
+	return t;
 }

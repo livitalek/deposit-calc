@@ -3,13 +3,12 @@
 
 int main() {
 	int d;
-	float t, s;
+	float s, t;
 	ml: printf("Write the days and deposit ");
 	scanf("%d %f", &d, &s);
-	if(d > 0 && d < 366 && s >= 10000) {
-		t = analiz(d, s);
-		printf("Finish summ is %f", t);
-	}
-	else goto ml;
+	t = analiz2 (d, s);
+	if (t == 0) goto ml;
+	else t = analiz (d, s);
+	printf("Finish summ is %f", t);
 	return 0;
 }

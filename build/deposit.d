@@ -1,1 +1,1 @@
-deposit.o: src/deposit.c
+deposit.o: src/deposit.c src/deposit.h
