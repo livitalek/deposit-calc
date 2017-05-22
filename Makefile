@@ -21,6 +21,6 @@ build/main.o: src/main.c src/deposit.h
 
 .PHONY: clean
 clean:
-	rm -rf build/* bin/*
+	rm -rf build/ bin/
 
 -include $(DEP)
