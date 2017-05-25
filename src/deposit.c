@@ -19,10 +19,10 @@ float sum_analiz(int days, float sum) {
 	return sum;
 }
 
-float correct_analiz(int days, float sum) {
+int correct_analiz(int days, float sum) {
 	float t;
 	if(days > 0 && days < 366 && sum >= 10000) {
-		t = sum_analiz(days, sum);
+		t = 1;
 	}
 	else t = 0;
 	return t;
