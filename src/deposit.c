@@ -1,5 +1,5 @@
 #include "deposit.h"
-float sum_analiz(int days, float sum) {
+int sum_analiz(int days, int sum) {
 	if(days <= 30) {
 		if (sum <= 100000) sum -= sum / 10;
 			else sum -= sum / 10;
@@ -19,8 +19,8 @@ float sum_analiz(int days, float sum) {
 	return sum;
 }
 
-int correct_analiz(int days, float sum) {
-	float t;
+int correct_analiz(int days, int sum) {
+	int t;
 	if(days > 0 && days < 366 && sum >= 10000) {
 		t = 1;
 	}

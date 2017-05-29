@@ -2,13 +2,12 @@
 #include "deposit.h"
 
 int main() {
-	int d;
-	float s, t;
+	int d, s, t;
 	ml: printf("Write the days and deposit ");
-	scanf("%d %f", &d, &s);
+	scanf("%d %d", &d, &s);
 	t = correct_analiz (d, s);
 	if (t == 0) goto ml;
 	else t = sum_analiz (d, s);
-	printf("Finish summ is %f", t);
+	printf("Finish summ is %d", t);
 	return 0;
 }

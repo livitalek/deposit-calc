@@ -1,53 +1,50 @@
-CF = gcc -Wall -Werror 
-CF_TEST = $(CF) -Isrc -Ithirdpaty
+CF = gcc -Wall -Werror
+CF_TEST = $(CF) -Isrc -Ithirdparty
 
-SRC = src/main.c src/deposit.c
-OBJ_SRC = build/src/main.o build/src/deposit.o
-DEP_SRC = build/src/main.d build/src/deposit.d
+OBJ_DIR = build/src
+SRC_DIR = src
+TEST_OBJ_DIR = build/test
+TEST_SRC_DIR = test
+
 EXE = bin/deposit-calc
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+DEP = $(OBJ:.o=.d)
 
-TEST_SRC = test/deposit_test.c test/main.c test/validation_test.c
-TEST_OBJ = build/test/deposit_test.o build/test/main.o
-TEST_DEP = build/test/seposit_teat.d build/test/main.d
-TEST_EXE = bin/deposit-calc-test
-
-.PHONY: all clean test
-
-all: build/ build/src/ bin/ $(EXE) $(SRC)
-
-build/ build/src/ bin/:
-	mkdir $@
-
-$(EXE): $(OBJ_SRC)
-	$(CF) $(OBJ_SRC) -o $@
-build/src/deposit.o: src/deposit.c
-	$(CF) build/src/deposit.c -c -o $@
-	$(CF) build/src/deposit.c -MM > build/src/deposit.d
-
-build/src/main.o: src/main.c src/deposit.h
-	$(CF) build/src/main.c -c -o $@
-	$(CF) build/src/main.c -MM > build/src/main.d
-
-test: build/ build/test/ bin/ $(TEST_EXE) $(TEST_SRC)
-
-build/ build/test/ bin/:
-	mkdir $@
-
-$(TEST_EXE): $(TEST_OBJ)
-	$(CF_TEST) $(TEST_OBJ) -o $@
-
-build/test/valudation_test.o: test/valudation_teat.c src/deposit.h thirdparty/ctest.h
-
-build/test/deposit_test.o: test/deposit_test.c thirdparty/ctest.h src/deposit.h
-	$(CF_TEST) build/test/deposit_test.c -c -o $@
-	$(CF_TEST) build/test/deposit_test.c -MM > build/test/src/deposit.d
-
-build/test/main.o: test/main.c thirdparty/ctest.h
-	$(CF_TEST) build/test/main.c -c -o $@
-	$(CF_TEST) build/test/main.c -MM > build/test/main.d
-
-clean:
-	rm -rf build/ bin/
+TEST_EXE := bin/deposit-calc-test
+TEST_SRC := $(wildcard $(TEST_SRC_DIR)/*.c)
+TEST_OBJ := $(patsubst $(TEST_SRC_DIR)/%.c, $(TEST_OBJ_DIR)/%.o, $(TEST_SRC))
+TEST_DEP := $(TEST_OBJ:.o=.d)
 
 -include $(DEP)
 -include $(TEST_DEP)
+
+.PHONY: all clean test
+
+
+all: build/ $(OBJ_DIR) bin/ $(EXE) $(SRC)
+
+build/ $(OBJ_DIR) $(TEST_OBJ_DIR) bin/:
+	mkdir $@
+
+$(EXE): $(OBJ)
+	$(CF) $^ -o $@
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CF) $^ -c -o $@ 
+	$(CF) $^ -MM > $(OBJ_DIR)/$*.d 
+
+
+
+test: all $(TEST_OBJ_DIR) $(TEST_EXE) $(TEST_SRC)
+
+$(TEST_EXE): $(TEST_OBJ) $(patsubst build/src/main.o, ,$(OBJ))
+	$(CF_TEST) $^ -o $@
+
+$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
+	$(CF_TEST) $^ -c -o $@
+	$(CF_TEST) $^ -MM > $(TEST_OBJ_DIR)/$*.d
+
+
+clean:
+	rm -rf build bin
