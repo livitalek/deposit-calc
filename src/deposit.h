@@ -1,7 +1,7 @@
 #ifndef DEPOSIT_H
 #define DEPOSIT_H
 
-float analiz (int d, float s);
-float analiz2 (int d, float s);
+int sum_analiz (int days, int sum);
+int correct_analiz (int days, int sum);
 
 #endif
